@@ -21,6 +21,33 @@ python analysis.py
 
 Results: results are written to `results.json` (and a chart to `figures/pr_auc_bar.png`).
 
+## Results (latest run)
+
+On the public road-safety dataset (OpenML 44038, held-out test split), a standard logistic-regression risk classifier reached PR-AUC 0.736, while my class-weighted, isotonically calibrated LightGBM reached 0.898 on the same split.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.7359 |
+| improved_score | 0.8983 |
+| improvement | 0.1624 |
+| baseline_score_std | 1.11e-16 |
+| improved_score_std | 0.001511 |
+| baseline_f1 | 0.6974 |
+| improved_f1 | 0.7943 |
+| f1_improvement | 0.09692 |
+| baseline_f1_std | 1.11e-16 |
+| improved_f1_std | 0.0007365 |
+| baseline_brier | 0.2038 |
+| improved_brier | 0.1355 |
+| brier_improvement | 0.06836 |
+| baseline_brier_std | 0 |
+| improved_brier_std | 0.0009466 |
+| elapsed_seconds | 164.7 |
+
+Run on 2026-10-19. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Stand-in dataset chosen by name from OpenML, not the paper's data; the paper's vision-language scorer is not reproduced. Positive class is the minority label. Rows subsampled to at most 200,000 stratified. Only LightGBM is randomised; the logistic-regression baseline is deterministic, so its std is zero. Test set used once per seed for both models; no test-set selection.
+
 ## Reference
 
 This project is motivated by the following paper:
