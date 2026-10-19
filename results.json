@@ -1,0 +1,36 @@
+{
+  "question": "Can a class-balanced, calibrated LightGBM model give more reliable risk probabilities than a standard logistic-regression baseline on a public tabular driving-hazard stand-in dataset?",
+  "method": "Stratified 75/25 train/test split (seed 42). Baseline: standardised logistic regression. Improved: class-weighted LightGBM with CV-tuned hyperparameters plus isotonic calibration. Thresholds for macro-F1 chosen by out-of-fold CV on the training split. Seeds 42-44.",
+  "dataset": {
+    "name": "road-safety",
+    "source_url": "https://www.openml.org/d/44038",
+    "n_rows": 111762,
+    "n_train": 83821,
+    "n_test": 27941,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "PR-AUC (average precision) on held-out test set",
+  "higher_is_better": true,
+  "baseline": "Standardised logistic regression (scikit-learn, default L2, no class weighting)",
+  "improved": "Class-weighted LightGBM with 8-draw CV hyperparameter search and isotonic calibration (3-fold)",
+  "metrics": {
+    "baseline_score": 0.7359254669667455,
+    "improved_score": 0.898284894061248,
+    "improvement": 0.16235942709450246,
+    "baseline_score_std": 1.1102230246251565e-16,
+    "improved_score_std": 0.0015106752951785014,
+    "baseline_f1": 0.6973901554462497,
+    "improved_f1": 0.7943072446804976,
+    "f1_improvement": 0.09691708923424791,
+    "baseline_f1_std": 1.1102230246251565e-16,
+    "improved_f1_std": 0.0007364744954104967,
+    "baseline_brier": 0.20383284494984225,
+    "improved_brier": 0.13547627933671683,
+    "brier_improvement": 0.06835656561312542,
+    "baseline_brier_std": 0.0,
+    "improved_brier_std": 0.0009466185251213315,
+    "elapsed_seconds": 164.6752245426178
+  },
+  "notes": "Stand-in dataset chosen by name from OpenML, not the paper's data; the paper's vision-language scorer is not reproduced. Positive class is the minority label. Rows subsampled to at most 200,000 stratified. Only LightGBM is randomised; the logistic-regression baseline is deterministic, so its std is zero. Test set used once per seed for both models; no test-set selection."
+}
